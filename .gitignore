@@ -1,0 +1,5 @@
+deck-client/node_modules
+deck-client/package-lock.json
+
+deck-server/node_modules
+deck-server/package-lock.json

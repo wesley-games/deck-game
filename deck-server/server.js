@@ -6,8 +6,6 @@ var app = express();
 var server = http.Server(app);
 var io = socket(server);
 
-var players = [];
-
 app.get('/', function (req, res) {
 	res.send(players);
 });
@@ -17,10 +15,11 @@ server.listen(5000, function () {
 });
 
 io.on('connection', function (socket) {
-    console.log('connected' + socket);
+    console.log('connected: ' + socket.id);
     
-	socket.on('new', function (playerId) {
-		players[socket.id] = { id: playerId };
-		console.log('New Player : ' + playerId);
+	socket.on('send_message', function (message) {
+        console.log(socket.id + ': ' + message);
+
+		socket.broadcast.emit('on_message', message);
 	});
 });
